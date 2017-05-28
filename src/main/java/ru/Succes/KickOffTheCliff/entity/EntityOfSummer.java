@@ -28,12 +28,6 @@ public class EntityOfSummer {
     @Column(name = "photo",length = 500)
     private String photo;
 
-    @Column(name = "longitude")
-    private double longitude;
-
-    @Column(name = "latitude")
-    private double latitude;
-
     /*конструктор пустой*/
     public EntityOfSummer() {
     }
@@ -42,6 +36,7 @@ public class EntityOfSummer {
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -49,19 +44,16 @@ public class EntityOfSummer {
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
 
     public String getInfo(){return info;}
+
     public  void setInfo(String info){this.info =info;}
 
     public String getPhoto(){return photo;}
+
     public  void setPhoto(String photo){this.photo =photo;}
-
-    public double getLongitude(){return longitude;}
-    public void setLongitude(double longitude){this.longitude = longitude;}
-
-    public double getLatitude(){return latitude;}
-    public void setLatitude(double latitude){this.latitude = latitude;}
 }
