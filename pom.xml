@@ -8,6 +8,8 @@
     <artifactId>ru.Succes.KickOffTheCliff</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <!--показывает как у паковать наш проект. в данном случае, как веб архив-->
+    <packaging>war</packaging>
 
     <!--Версии наших библиотек-->
     <properties>
@@ -21,8 +23,7 @@
         <jackson-databind.version>2.9.0.pr1</jackson-databind.version>
     </properties>
 
-    <!--показывает как у паковать наш проект. в данном случае, как веб архив-->
-    <packaging>war</packaging>
+
 
     <!--Зависимости - наши подключаемые библиотеки-->
     <dependencies>

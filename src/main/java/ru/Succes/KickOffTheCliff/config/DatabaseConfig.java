@@ -33,11 +33,9 @@ public class DatabaseConfig {
 
     @Resource
     private Environment env;//сможем получать доступ к нашим проперти файлам и получать значения
-    private Properties hibernateProperties;
 
 
     /*кратко о том , что такое EntityManagerFactory. Есть такое понятие как Entity -сущность
-     * Entity в нашем случае, это классы , которые отображают таблицы БД , как классы.( отображение нашей модели данных, которую мы будем писать на джава, в БД
       * EntityManagerFactory предоставляет возможность автоматического создания наших бинов и создания таблиц на основе наших бинов*/
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {

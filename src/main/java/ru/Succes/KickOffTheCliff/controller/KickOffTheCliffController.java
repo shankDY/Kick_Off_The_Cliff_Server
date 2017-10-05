@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.Succes.KickOffTheCliff.entity.EntityOfSummer;
 import ru.Succes.KickOffTheCliff.entity.EntityOfWinter;
-import ru.Succes.KickOffTheCliff.service.KC2Service;
 import ru.Succes.KickOffTheCliff.service.KickOffTheCliffService;
 
 import java.util.List;
@@ -18,88 +17,67 @@ import java.util.List;
 public class KickOffTheCliffController {
 
 
-    /*инцилизтруем на сервис */
+    /*инцилизтруем наш сервис для работы с таблицей summer */
     @Autowired
     private KickOffTheCliffService service;
 
     /*т.к методов у нас может быть много. То  данная анатация дает  возможность обратиться к данному методу.говорит о том ,
-     как попадать на данный контролер указав в url localhost:8080 /kickOffTheCliff*/
-    @RequestMapping(value = "/kickOffTheCliff",method = RequestMethod.GET)
+     как попадать на данный контролер указав в url localhost:8080 /summer*/
+    @RequestMapping(value = "/summer",method = RequestMethod.GET)
     @ResponseBody // скажет , что в качестве ответа надо вернуть в нашем случае строку
     //Получаем все записи
     public List<EntityOfSummer> getKickOffTheCliff(){
-        return  service.getAll();
+        return  service.getAllSummer();
     }
 
 
     /* Данный метод нужен , чтобы получать какой-нибудь один объект. Например напоминание с id =12*/
-    @RequestMapping(value = "/kickOffTheCliff/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/summer/{id}",method = RequestMethod.GET)
     @ResponseBody
     // public List<Remind> getReminders(@PathVariable long id ){ два варианта задания
     public EntityOfSummer getKickOffTheCliff(@PathVariable("id") long rayID ){
-        return  service.getByID(rayID);
+        return  service.getByIDSummer(rayID);
     }
 
 
     /* Данный метод нужен , чтобы записывать в нашу бд*/
-    @RequestMapping(value = "/kickOffTheCliff",method = RequestMethod.POST)
+    @RequestMapping(value = "/summer",method = RequestMethod.POST)
     @ResponseBody
     public EntityOfSummer save(@RequestBody EntityOfSummer entityOfSummer){ //анатацией @RequestBody будем принимать целый объект Remind
             /* вернется данный элемент уже с нашим id. И когда мы пришлем сюда элемент на сохранение.
              А там уже будет находиться remind с id. то данный метод его обновит. Поэтому данный метод можно использвать для обновления нашей записи*/
-        return  service.save(entityOfSummer);
+        return  service.saveSummer(entityOfSummer);
     }
 
     /* Данный метод нужен , чтобы удалять записи из бд*/
-    @RequestMapping(value = "/kickOffTheCliffs/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/summer/{id}",method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable long id){
-        service.remove(id); // обычно при удалении ничего не возвращаем. Но можно вернуть какой-нибудь модификатор или респоунс
+        service.removeSummer(id); // обычно при удалении ничего не возвращаем. Но можно вернуть какой-нибудь модификатор или респоунс
     }
 
-
-
-
-    /*инцилизтруем на сервис */
-    @Autowired
-    private KC2Service kc2Service;
-
-    /*т.к методов у нас может быть много. То  данная анатация дает  возможность обратиться к данному методу.говорит о том ,
-     как попадать на данный контролер указав в url localhost:8080 /kickOffTheCliff*/
     @RequestMapping(value = "/winter",method = RequestMethod.GET)
-    @ResponseBody // скажет , что в качестве ответа надо вернуть в нашем случае строку
-    //Получаем все записи
+    @ResponseBody
     public List<EntityOfWinter> getWinter(){
-        return  kc2Service.getAll();
+        return  service.getAllWinter();
     }
 
 
-    /* Данный метод нужен , чтобы получать какой-нибудь один объект. Например напоминание с id =12*/
     @RequestMapping(value = "/winter/{id}",method = RequestMethod.GET)
     @ResponseBody
-    // public List<Remind> getReminders(@PathVariable long id ){ два варианта задания
     public EntityOfWinter getWinter(@PathVariable("id") long winterID ){
-        return  kc2Service.getByID(winterID);
+        return  service.getByIDWinter(winterID);
     }
 
-
-    /* Данный метод нужен , чтобы записывать в нашу бд*/
     @RequestMapping(value = "/winter",method = RequestMethod.POST)
     @ResponseBody
-    public EntityOfWinter saveWinter(@RequestBody EntityOfWinter entityOfWinter){ //анатацией @RequestBody будем принимать целый объект Remind
-            /* вернется данный элемент уже с нашим id. И когда мы пришлем сюда элемент на сохранение.
-             А там уже будет находиться remind с id. то данный метод его обновит. Поэтому данный метод можно использвать для обновления нашей записи*/
-        return  kc2Service.save(entityOfWinter);
+    public EntityOfWinter saveWinter(@RequestBody EntityOfWinter entityOfWinter){
+        return  service.saveWinter(entityOfWinter);
     }
 
-    /* Данный метод нужен , чтобы удалять записи из бд*/
     @RequestMapping(value = "/winter/{id}",method = RequestMethod.DELETE)
     @ResponseBody
     public void deleteWinter(@PathVariable long id){
-        kc2Service.remove(id); // обычно при удалении ничего не возвращаем. Но можно вернуть какой-нибудь модификатор или респоунс
+        service.removeWinter(id); // обычно при удалении ничего не возвращаем. Но можно вернуть какой-нибудь модификатор или респоунс
     }
-
-
-
-
 }
