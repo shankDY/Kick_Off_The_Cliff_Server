@@ -3,6 +3,8 @@ package ru.Succes.KickOffTheCliff.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /*для одной сущности один репозиторий */
 @Entity
@@ -31,6 +33,9 @@ public class EntityOfWinter {
     /*конструктор пустой*/
     public EntityOfWinter() {
     }
+
+    @OneToMany(mappedBy = "coordinates_ID")
+    private Set<CoordinatesWinter> coordinatesWinters =  new HashSet<CoordinatesWinter>();
 
     /*getter and setter*/
     public long getWinter_id() {

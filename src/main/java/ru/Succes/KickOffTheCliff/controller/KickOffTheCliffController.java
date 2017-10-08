@@ -2,10 +2,14 @@ package ru.Succes.KickOffTheCliff.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import ru.Succes.KickOffTheCliff.entity.CoordinatesSummer;
+import ru.Succes.KickOffTheCliff.entity.CoordinatesWinter;
 import ru.Succes.KickOffTheCliff.entity.EntityOfSummer;
 import ru.Succes.KickOffTheCliff.entity.EntityOfWinter;
 import ru.Succes.KickOffTheCliff.service.KickOffTheCliffService;
 
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.util.List;
 /*Данный класс не будет вызываться из других классов, явно. у нас в коде. Но они вызываются на уровне сервера приложений( tomcat). С помощью сервлет менеджера они будут вызываться */
 
@@ -23,6 +27,7 @@ public class KickOffTheCliffController {
 
     /*т.к методов у нас может быть много. То  данная анатация дает  возможность обратиться к данному методу.говорит о том ,
      как попадать на данный контролер указав в url localhost:8080 /summer*/
+    //взаимодействие с таблицей winter
     @RequestMapping(value = "/summer",method = RequestMethod.GET)
     @ResponseBody // скажет , что в качестве ответа надо вернуть в нашем случае строку
     //Получаем все записи
@@ -56,12 +61,13 @@ public class KickOffTheCliffController {
         service.removeSummer(id); // обычно при удалении ничего не возвращаем. Но можно вернуть какой-нибудь модификатор или респоунс
     }
 
+
+    //взаимодействие с таблицей winter
     @RequestMapping(value = "/winter",method = RequestMethod.GET)
     @ResponseBody
     public List<EntityOfWinter> getWinter(){
         return  service.getAllWinter();
     }
-
 
     @RequestMapping(value = "/winter/{id}",method = RequestMethod.GET)
     @ResponseBody
@@ -80,4 +86,60 @@ public class KickOffTheCliffController {
     public void deleteWinter(@PathVariable long id){
         service.removeWinter(id); // обычно при удалении ничего не возвращаем. Но можно вернуть какой-нибудь модификатор или респоунс
     }
+
+    //взаимодействие с таблицей coordinates
+    @RequestMapping( value = "/summer/summerCoordinates",method = RequestMethod.GET)
+    @ResponseBody
+    public List<CoordinatesSummer> getSummerCoordinates(){
+        return service.getAllSummerCoordinates();
+    }
+
+    @RequestMapping(value ="/summer/summerCoordinates/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    @OneToMany(mappedBy = "coordinates_ID")
+    public CoordinatesSummer getSummerCoordinates(@PathVariable("id") long coordinates_ID ){
+        return  service.getByIDSummerCoordinates(coordinates_ID);
+    }
+
+    @RequestMapping(value = "/summer/summerCoordinates",method = RequestMethod.POST)
+    @ResponseBody
+    public CoordinatesSummer saveSummerCoordinates(@RequestBody CoordinatesSummer coordinatesSummer){
+        return  service.saveSummerCoordinates(coordinatesSummer);
+    }
+
+    @RequestMapping(value = "/summer/summerCoordinates/{id}",method = RequestMethod.DELETE)
+    @ResponseBody
+    public void deleteSummerCoordinates(@PathVariable long id){
+        service.removeSummerCoordinates(id);
+    }
+
+    //взаимодействие с таблицей coordinateswinter
+    @RequestMapping( value = "/winter/winterCoordinates",method = RequestMethod.GET)
+    @ResponseBody
+    public List<CoordinatesWinter> getWinterCoordinates(){
+        return service.getAllWinterCoordinates();
+    }
+
+    @RequestMapping(value ="/winter/winterCoordinates/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    @OneToMany(mappedBy = "coordinates_ID")
+    public CoordinatesWinter getWinterCoordinates(@PathVariable("id") long coordinates_ID ){
+        return  service.getByIDWinterCoordinates(coordinates_ID);
+    }
+
+    @RequestMapping(value = "/winter/winterCoordinates",method = RequestMethod.POST)
+    @ResponseBody
+    public CoordinatesWinter saveWinterCoordinates(@RequestBody CoordinatesWinter coordinatesWinter){
+        return  service.saveWinterCoordinates(coordinatesWinter);
+    }
+
+    @RequestMapping(value = "/winter/winterCoordinates/{id}",method = RequestMethod.DELETE)
+    @ResponseBody
+    public void deleteWinterCoordinates(@PathVariable long id){
+        service.removeWinterCoordinates(id);
+    }
+
+
 }
+
+
