@@ -8,7 +8,6 @@ import ru.Succes.KickOffTheCliff.entity.EntityOfSummer;
 import ru.Succes.KickOffTheCliff.entity.EntityOfWinter;
 import ru.Succes.KickOffTheCliff.service.KickOffTheCliffService;
 
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.util.List;
 /*Данный класс не будет вызываться из других классов, явно. у нас в коде. Но они вызываются на уровне сервера приложений( tomcat). С помощью сервлет менеджера они будут вызываться */
